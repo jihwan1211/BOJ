@@ -3,28 +3,10 @@ using namespace std;
 
 vector<int> h;
 
-void combi(int start, vector<int> b){ 
-   if(b.size() == 7){
-      int sum=0;
-      for(int i=0; i<7; i++){
-         sum+=b[i];
-      }
-      if(sum==100){
-           for(int i=0; i<7; i++) cout<<b[i]<<"\n";
-           exit(0);
-      }
-      return; 
-   }
-
-   for(int i = start + 1; i < 9; i++){ 
-      b.push_back(h[i]);
-      combi(i, b);
-      b.pop_back();
-    }
-   return; 
-}
-
 int main(){
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
    for(int i=0; i<9; i++) {
       int temp;
       cin>>temp;
@@ -32,8 +14,13 @@ int main(){
    }
 
    sort(h.begin(), h.end());
-   vector<int> b;
-   combi(-1, b);
 
+   do{
+      int sum=0;
+      for(int i=0; i<7; i++) sum+=h[i];
+      if(sum==100) break;
+   }while(next_permutation(h.begin(), h.end()));
+
+   for(int i=0; i<7; i++) cout<<h[i]<<"\n";
    return 0;
 }

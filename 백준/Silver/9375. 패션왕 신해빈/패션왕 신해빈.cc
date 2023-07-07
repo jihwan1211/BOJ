@@ -1,7 +1,7 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-int T, N, arr[34];
+int T, N;
 string name, group;
 map<string, int> m;
 
@@ -30,3 +30,5 @@ int main(void){
    }
    return 0;
 }
+
+

@@ -18,7 +18,8 @@ int main(void){
         cin>>J[i];
     }
 
-    for(int i=0; i<20; i++){
+
+    for(int i=0; i<n; i++){
         for(int hp=100; hp>L[i]; hp--){
             if(hp-L[i]<=0) continue;
             dp[hp] = max(dp[hp], dp[hp-L[i]] + J[i]);

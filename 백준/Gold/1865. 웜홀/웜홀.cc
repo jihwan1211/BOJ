@@ -21,12 +21,14 @@ int main(void){
             cin>>S>>E>>T;
             vec[S].push_back({E, -T});
         }
-        bool success = false;
+        
         int dist[504];
-        fill(&dist[0], &dist[0] + 504, 987654321);
+        fill(&dist[0], &dist[0] + 504, 0);
         bool negative = false;
-        // 출발 지점이 j인 상황
-        dist[1] = 0;
+        // 임의의 출발지점 N+1 정의 및 모든 정점들과 N+1을 연결
+        int start=N+1;
+        for(int j=1; j<=N; j++) vec[start].push_back({j, 0});
+        dist[start] = 0;
         // N-1번의 라운드 진행
         for(int k=1; k<=N; k++){
             // N개의 모든 정점에서 확인
@@ -34,7 +36,7 @@ int main(void){
                 for(int m=0; m<vec[l].size(); m++){
                     int there = vec[l][m].first;
                     int cost = vec[l][m].second;
-                    if(dist[there] > dist[l] + cost){
+                    if(dist[l] != 987654321 && dist[there] > dist[l] + cost){
                         if(k == N) {
                             negative = true;
                             break;

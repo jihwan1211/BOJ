@@ -22,7 +22,7 @@ void go(int row_num){
         row[row_num] = i;
         // 둘 수 있는지 확인
         if(check(row_num)) go(row_num+1);
-        row[row_num] = 0;
+        // row[row_num] = 0;
         
     }
 }

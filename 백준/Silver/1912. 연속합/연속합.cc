@@ -1,20 +1,18 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int arr[100004];
-int dp[100004];
-int n;
+int N;
+int arr[100004], dp[100004];
 
-void go(){
+int solve(){
     dp[0] = arr[0];
-    int max_sum = dp[0];
-    
-    for(int i=1; i<n; i++){
+    int max_sum = arr[0];
+
+    for(int i=1; i<N; i++){
         dp[i] = max(arr[i], dp[i-1] + arr[i]);
         max_sum = max(max_sum, dp[i]);
     }
-    
-    cout << max_sum << '\n';
+    return max_sum;
 }
 
 int main(void){
@@ -22,9 +20,12 @@ int main(void){
     cin.tie(NULL);
     cout.tie(NULL);
 
-    cin >> n;
-    for(int i=0; i<n; i++) cin >> arr[i];
+    cin>>N;
+    for(int i=0; i<N; i++){
+        cin>>arr[i];
+    }
 
-    go();
+    cout<<solve();
+
     return 0;
 }

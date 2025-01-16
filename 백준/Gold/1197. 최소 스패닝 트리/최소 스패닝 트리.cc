@@ -1,28 +1,28 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int V, E, from, to, edgeNum, cost;
+int V, E, from, to, cost, ret;
 vector<pair<int, pair<int, int>>> vec;
 int parent[10004];
 
-int getParent(int x) {
-    if(parent[x] == x) return x;
-    parent[x] = getParent(parent[x]);
-    return parent[x];
+int findParent(int pos){
+    if(parent[pos] == pos) return pos;
+    parent[pos] = findParent(parent[pos]);
+    return parent[pos];
 }
 
-void unionParent(int a, int b){
-    a = getParent(a);
-    b = getParent(b);
-    if(a < b) parent[b] = a;
-    else parent[a] = b;
+void mergeParent(int pos1, int pos2){
+    pos1 = findParent(pos1);
+    pos2 = findParent(pos2);
+    if(pos1 < pos2) parent[pos2] = pos1;
+    else parent[pos1] = pos2;
 }
 
-bool isSameParent(int a, int b){
-    a = getParent(a);
-    b = getParent(b);
-    if(a == b) return true;
-    return false;
+bool isSameParent(int pos1, int pos2){
+    pos1 = findParent(pos1);
+    pos2 = findParent(pos2);
+    if(pos1 == pos2) return true;
+    else return false;
 }
 
 int main(void){
@@ -36,31 +36,23 @@ int main(void){
         vec.push_back({cost, {from, to}});
     }
     sort(vec.begin(), vec.end());
+
     for(int i=1; i<=V; i++) parent[i] = i;
 
     int pos = 0;
-    int ret = 0;
-    while(1){
-        // 끝
-        if(edgeNum == V-1) {
-            break;
-        }
+    int edgeNum = 0;
+    while(true){
+        if(edgeNum == V-1) break;
+        int here_cost = vec[pos].first;
+        int pos1 = vec[pos].second.first;
+        int pos2 = vec[pos].second.second;
 
-        int cost = vec[pos].first;
-        int posA = vec[pos].second.first;
-        int posB = vec[pos].second.second;
-
-        if(edgeNum == 0){
-            if(posA < posB) parent[posB] = posA;
+        if(!isSameParent(pos1, pos2)) {
+             mergeParent(pos1, pos2);
             edgeNum++;
-            ret += cost;
-        }else {
-            if(!isSameParent(posA, posB)) {
-                unionParent(posA, posB);
-                edgeNum++;
-                ret += cost;
-            }
-        }
+            ret+=here_cost;
+        }  
+        
         pos++;
     }
     cout<<ret;

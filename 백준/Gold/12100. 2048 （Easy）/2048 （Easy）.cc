@@ -4,13 +4,6 @@ using namespace std;
 int N, answer=-987654321;
 int arr[21][21];
 int temp[21][21];
-int copy_arr[21][21];
-/*
- * dp[0][0] -> dp[1][0], dp[1][1], dp[1][2], dp[1][3]
- * dp[2][0] -> 
- */
-const int dy[] = {-1, 0, 1, 0};
-const int dx[] = {0, 1, 0, -1};
 
 void move(int dir, int arr[21][21]){
     if(dir == 0){
@@ -189,7 +182,7 @@ void dfs(int cnt, int before_move_arr[21][21]){
     }
     for(int dir=0; dir<4; dir++){
         int temp[21][21];
-        memcpy(temp, before_move_arr, sizeof(copy_arr));
+        memcpy(temp, before_move_arr, sizeof(arr));
         move(dir, temp);
         dfs(cnt+1, temp);
     }
@@ -208,8 +201,7 @@ int main(void){
         }
     }
  
-    memcpy(copy_arr, arr, sizeof(arr));
-    dfs(0, copy_arr);
+    dfs(0, arr);
     
     cout<<answer;
     return 0;
